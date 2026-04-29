@@ -25,16 +25,18 @@ def get_prompt(length, language, tag, retrieved_posts, tone="Professional", use_
     }.get(use_emoji, "")
 
     prompt = f'''
-    Generate a LinkedIn post using the below information. No preamble.
+    Craft a highly engaging, insightful, and meaningful LinkedIn post based on the parameters below.
+    Ensure the content is well-structured, thought-provoking, and naturally drives engagement.
+    Crucially, incorporate relevant quantitative data, statistics, or real-world metrics where applicable to justify your points and add authority.
+    
+    Do NOT include any preamble, concluding remarks like "Here is your post", or meta-commentary. Output ONLY the final post content.
 
-    1) Topic: {tag}
-    2) Length: {length_str}
-    3) Language: {language}
+    Parameters:
+    1) Topic/Core Theme: {tag}
+    2) Target Length: {length_str}
+    3) Language: {language} (If Hinglish, use a natural conversational blend of Hindi and English written in the English alphabet)
     4) Tone: {tone}
-    5) Emoji Usage: {emoji_instruction}
-
-    If Language is Hinglish then it means it is a mix of Hindi and English.
-    The script for the generated post should always be English.
+    5) Emoji Guidelines: {emoji_instruction}
     '''
 
     if user_prompt.strip():
