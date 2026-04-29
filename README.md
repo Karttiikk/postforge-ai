@@ -1,28 +1,72 @@
-# project-genai-post-generator
-This tool will analyze posts of a LinkedIn influencer and help them create the new posts based on the writing style in their old posts  
+# ✍️ PostForge AI
 
-<img src="resources/tool.jpg"/>
+**PostForge AI** is a professional-grade LinkedIn content generation platform. It empowers influencers and thought leaders to create high-impact posts that sound exactly like them, powered by **Few-Shot Learning** and the latest **Llama 3.3** LLM.
 
-Let's say Mohan is a LinkedIn influencer and he needs help in writing his future posts. He can feed his past LinkedIn posts to this tool and it will extract key topics. Then he can select the topic, length, language etc. and use Generate button to create a new post that will match his writing style. 
+![PostForge UI Preview](C:\Users\91902\.gemini\antigravity\brain\ee0c51d0-3ebe-462f-92fe-f9857bdb820f\postforge_ui_full_page_1777443128008.png)
 
-## Technical Architecture
-<img src="resources/architecture.jpg"/>
+## 🚀 Key Features
 
-1. Stage 1: Collect LinkedIn posts and extract Topic, Language, Length etc. from it.
-1. Stage 2: Now use topic, language and length to generate a new post. Some of the past posts related to that specific topic, language and length will be used for few shot learning to guide the LLM about the writing style etc.
+- **Personalized Voice**: Uses your past posts to mimic your unique writing style, hook patterns, and formatting.
+- **Tone Control**: Choose from various tones like Professional, Casual, Inspirational, or Story-driven.
+- **Emoji Management**: Toggle between full emojis, minimal usage, or clean text-only posts.
+- **Bilingual Support**: Seamlessly generate content in English or **Hinglish**.
+- **Content Optimizer**: Real-time LinkedIn character counting and "scroll-friendly" formatting.
+- **Premium UI**: A sleek, high-performance dark-mode interface built with React.
 
-## Set-up
-1. To get started we first need to get an API_KEY from here: https://console.groq.com/keys. Inside `.env` update the value of `GROQ_API_KEY` with the API_KEY you created. 
-2. To get started, first install the dependencies using:
-    ```commandline
-     pip install -r requirements.txt
-    ```
-3. Run the streamlit app:
-   ```commandline
-   streamlit run main.py
-   ```
-Copyright (C) Codebasics Inc. All rights reserved.
+## 🛠️ Tech Stack
 
+- **Frontend**: React (Vite), Vanilla CSS (Premium Glassmorphism Design).
+- **Backend**: FastAPI (Python), Uvicorn.
+- **AI/LLM**: LangChain, Groq API (Llama 3.3-70b-versatile).
+- **Data**: Pandas, JSON-based storage.
 
-**Additional Terms:**
-This software is licensed under the MIT License. However, commercial use of this software is strictly prohibited without prior written permission from the author. Attribution must be given in all copies or substantial portions of the software.
+## 📦 Installation
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/yourusername/PostForge-AI.git
+cd PostForge-AI
+```
+
+### 2. Setup Backend
+```bash
+# Install Python dependencies
+pip install -r requirements.txt
+
+# Create a .env file and add your Groq API Key
+echo "GROQ_API_KEY=your_groq_api_key_here" > .env
+```
+
+### 3. Setup Frontend
+```bash
+cd frontend
+npm install
+cd ..
+```
+
+## 🏃‍♂️ Running the App
+
+You can launch both the backend and frontend simultaneously using the provided orchestration script:
+
+```bash
+python run_dev.py
+```
+
+- **Frontend**: [http://localhost:5173](http://localhost:5173)
+- **Backend API**: [http://localhost:8000](http://localhost:8000)
+
+## 🏗️ Project Structure
+
+- `api.py`: FastAPI backend server.
+- `post_generator.py`: Core AI prompt engineering logic.
+- `few_shot.py`: Logic for retrieving relevant examples from history.
+- `llm_helper.py`: LLM initialization and Groq integration.
+- `data/`: Contains raw and processed LinkedIn posts.
+- `frontend/`: The React source code.
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+---
+Built with ❤️ by **PostForge AI Team**
