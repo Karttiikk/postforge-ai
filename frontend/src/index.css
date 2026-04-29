@@ -252,6 +252,21 @@ body {
   font-size: 12px;
 }
 
+/* ── Text Input (Query Bar) ───────────────────────────────── */
+.text-input {
+  transition: border-color var(--transition), box-shadow var(--transition);
+  outline: none;
+}
+
+.text-input:focus {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 3px var(--accent-glow), inset 0 2px 4px rgba(0,0,0,0.2) !important;
+}
+
+.text-input:hover {
+  border-color: rgba(255,255,255,0.18);
+}
+
 /* ── Emoji Toggle ─────────────────────────────────────────── */
 .toggle-group {
   display: flex;

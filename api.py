@@ -26,6 +26,7 @@ class GenerateRequest(BaseModel):
     language: str     # "English" | "Hinglish"
     tone: str = "Professional"
     use_emoji: str = "On"  # "On" | "Off" | "Minimal"
+    user_prompt: str = ""
 
 
 @app.get("/api/tags")
@@ -64,6 +65,7 @@ def generate(req: GenerateRequest):
             retrieved_posts=retrieved_posts,
             tone=req.tone,
             use_emoji=req.use_emoji,
+            user_prompt=req.user_prompt,
         )
         return {"post": post}
     except Exception as e:

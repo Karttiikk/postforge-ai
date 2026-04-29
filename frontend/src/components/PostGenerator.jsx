@@ -14,6 +14,7 @@ export default function PostGenerator({ onResult }) {
   const [language, setLanguage] = useState('English')
   const [tone, setTone]         = useState('Professional')
   const [emoji, setEmoji]       = useState('On')
+  const [customPrompt, setCustomPrompt] = useState('')
   const [loading, setLoading]   = useState(false)
   const [error, setError]       = useState('')
   const [tagsLoading, setTagsLoading] = useState(true)
@@ -30,8 +31,8 @@ export default function PostGenerator({ onResult }) {
     setLoading(true)
     setError('')
     try {
-      const post = await generatePost({ topic, length, language, tone, use_emoji: emoji })
-      onResult(post, { topic, length, language, tone, emoji })
+      const post = await generatePost({ topic, length, language, tone, use_emoji: emoji, user_prompt: customPrompt })
+      onResult(post, { topic, length, language, tone, emoji, user_prompt: customPrompt })
     } catch (e) {
       setError(e.message)
     } finally {
@@ -41,13 +42,40 @@ export default function PostGenerator({ onResult }) {
 
   return (
     <div className="card generator-card">
-      <p className="section-label">Configure your post</p>
+      <p className="section-label">What do you want to post about?</p>
 
       {error && (
         <div className="error-box" id="error-message">
           ⚠️ {error}
         </div>
       )}
+
+      {/* Primary Query Bar */}
+      <div className="form-field" style={{ marginBottom: '32px' }}>
+        <textarea
+          id="custom-prompt"
+          className="text-input"
+          placeholder="Describe your post in detail (e.g., A post about how AI is changing the future of coding...)"
+          value={customPrompt}
+          onChange={(e) => setCustomPrompt(e.target.value)}
+          rows={4}
+          style={{
+            width: '100%',
+            resize: 'vertical',
+            padding: '16px',
+            borderRadius: '12px',
+            border: '1px solid var(--border)',
+            backgroundColor: 'rgba(255,255,255,0.03)',
+            color: 'var(--text)',
+            fontFamily: 'inherit',
+            fontSize: '15px',
+            lineHeight: '1.5',
+            boxShadow: 'inset 0 2px 8px rgba(0,0,0,0.2)'
+          }}
+        />
+      </div>
+
+      <p className="section-label">Fine-tune Post Settings</p>
 
       {/* Row 1 — Topic + Length */}
       <div className="form-grid">

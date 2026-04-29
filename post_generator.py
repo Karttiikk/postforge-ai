@@ -9,13 +9,13 @@ def get_length_str(length):
         return "11 to 15 lines"
 
 
-def generate_post(length, language, tag, retrieved_posts, tone="Professional", use_emoji="On"):
-    prompt = get_prompt(length, language, tag, retrieved_posts, tone, use_emoji)
+def generate_post(length, language, tag, retrieved_posts, tone="Professional", use_emoji="On", user_prompt=""):
+    prompt = get_prompt(length, language, tag, retrieved_posts, tone, use_emoji, user_prompt)
     response = llm.invoke(prompt)
     return response.content
 
 
-def get_prompt(length, language, tag, retrieved_posts, tone="Professional", use_emoji="On"):
+def get_prompt(length, language, tag, retrieved_posts, tone="Professional", use_emoji="On", user_prompt=""):
     length_str = get_length_str(length)
 
     emoji_instruction = {
@@ -36,6 +36,9 @@ def get_prompt(length, language, tag, retrieved_posts, tone="Professional", use_
     If Language is Hinglish then it means it is a mix of Hindi and English.
     The script for the generated post should always be English.
     '''
+
+    if user_prompt.strip():
+        prompt += f"\n    Additional instructions from user:\n    {user_prompt}\n"
 
     if retrieved_posts:
         prompt += "\n6) Here are examples of user's writing style:\n"

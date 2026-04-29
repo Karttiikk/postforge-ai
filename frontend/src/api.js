@@ -7,11 +7,11 @@ export async function fetchTags() {
   return data.tags
 }
 
-export async function generatePost({ topic, length, language, tone, use_emoji }) {
+export async function generatePost({ topic, length, language, tone, use_emoji, user_prompt }) {
   const res = await fetch(`${BASE}/generate`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ topic, length, language, tone, use_emoji }),
+    body: JSON.stringify({ topic, length, language, tone, use_emoji, user_prompt }),
   })
   if (!res.ok) {
     const err = await res.json().catch(() => ({ detail: 'Unknown error' }))
