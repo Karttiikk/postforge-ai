@@ -42,7 +42,12 @@ class RAGHelper:
                 combined_text = f"Tags: {tags_str}. Language: {lang}. Content: {text}"
                 texts.append(combined_text)
 
-            embeddings = self.model.encode(texts, show_progress_bar=False)
+            with open("debug_rag.txt", "w", encoding="utf-8") as df:
+                df.write(f"Building index for {len(texts)} posts...\n")
+                for i, t in enumerate(texts):
+                    df.write(f"Post {i}: {type(t)} - {repr(t)}\n")
+            
+            embeddings = self.model.encode(texts, show_progress_bar=True)
             embeddings = np.array(embeddings).astype("float32")
             
             # Create FAISS index (L2 distance)

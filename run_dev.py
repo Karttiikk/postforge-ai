@@ -9,7 +9,7 @@ def run_dev():
     # 1. Start FastAPI Backend
     print("Starting FastAPI Backend on port 8000...")
     backend_process = subprocess.Popen(
-        ["uvicorn", "api:app", "--port", "8000", "--reload"],
+        [sys.executable, "-m", "uvicorn", "api:app", "--port", "8000", "--reload"],
         cwd=os.getcwd()
     )
     
