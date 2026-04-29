@@ -1,8 +1,4 @@
 from llm_helper import llm
-from few_shot import FewShotPosts
-
-few_shot = FewShotPosts()
-
 
 def get_length_str(length):
     if length == "Short":
@@ -13,13 +9,13 @@ def get_length_str(length):
         return "11 to 15 lines"
 
 
-def generate_post(length, language, tag, tone="Professional", use_emoji="On"):
-    prompt = get_prompt(length, language, tag, tone, use_emoji)
+def generate_post(length, language, tag, retrieved_posts, tone="Professional", use_emoji="On"):
+    prompt = get_prompt(length, language, tag, retrieved_posts, tone, use_emoji)
     response = llm.invoke(prompt)
     return response.content
 
 
-def get_prompt(length, language, tag, tone="Professional", use_emoji="On"):
+def get_prompt(length, language, tag, retrieved_posts, tone="Professional", use_emoji="On"):
     length_str = get_length_str(length)
 
     emoji_instruction = {
@@ -41,20 +37,16 @@ def get_prompt(length, language, tag, tone="Professional", use_emoji="On"):
     The script for the generated post should always be English.
     '''
 
-    examples = few_shot.get_filtered_posts(length, language, tag)
-
-    if len(examples) > 0:
-        prompt += "6) Use the writing style as per the following examples."
-
-    for i, post in enumerate(examples):
-        post_text = post['text']
-        prompt += f'\n\n Example {i+1}: \n\n {post_text}'
-
-        if i == 1:  # Use max two samples
-            break
+    if retrieved_posts:
+        prompt += "\n6) Here are examples of user's writing style:\n"
+        for i, post in enumerate(retrieved_posts):
+            post_text = post.get('text', '')
+            prompt += f'\n Example {i+1}: \n {post_text}\n'
+            
+        prompt += "\nGenerate a new post in a similar style to the examples above."
 
     return prompt
 
 
 if __name__ == "__main__":
-    print(generate_post("Medium", "English", "Mental Health"))
+    print(generate_post("Medium", "English", "Mental Health", []))
